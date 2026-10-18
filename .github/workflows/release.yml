@@ -1,0 +1,29 @@
+name: Draft release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify package
+        run: python scripts/build_package.py --check
+      - name: Calculate checksum
+        run: sha256sum PanoramaPortalSkybox.unitypackage > SHA256SUMS.txt
+      - name: Create draft with download assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: >-
+          gh release create "$RELEASE_TAG"
+          PanoramaPortalSkybox.unitypackage SHA256SUMS.txt
+          --verify-tag --draft --title "$RELEASE_TAG" --notes-file CHANGELOG.md

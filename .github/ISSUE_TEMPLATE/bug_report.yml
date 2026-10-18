@@ -1,0 +1,30 @@
+name: 不具合報告
+description: 表示やインポートに関する問題を報告する
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: 使用環境
+      description: Unity のバージョン、描画パイプライン、パッケージの取得日またはバージョン、VRChat SDK のバージョン、PC / VR 機器など。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 導入手順やマテリアル設定、カメラの位置など、問題を再現するための操作。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 期待する表示と実際の表示
+      description: 画像を添付する場合は共有可能なものを使用してください。
+    validations:
+      required: true
+  - type: textarea
+    id: errors
+    attributes:
+      label: Console のエラー
+      description: エラーがある場合は、個人情報などを除いて貼り付けてください。
+      render: text
